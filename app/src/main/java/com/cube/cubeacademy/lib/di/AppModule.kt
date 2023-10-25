@@ -7,6 +7,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,4 +31,9 @@ object AppModule {
 	@Singleton
 	@Provides
 	fun provideRepository(api: ApiService): Repository = Repository(api)
+
+
+	@Singleton
+	@Provides
+	fun provideCoroutineDispatcher(): CoroutineDispatcher = Dispatchers.Default
 }

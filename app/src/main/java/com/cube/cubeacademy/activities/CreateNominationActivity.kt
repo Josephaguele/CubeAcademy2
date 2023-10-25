@@ -4,23 +4,20 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
+import androidx.lifecycle.Observer
 import com.cube.cubeacademy.databinding.ActivityCreateNominationBinding
 import com.cube.cubeacademy.lib.di.Repository
-import com.cube.cubeacademy.lib.models.Nominee
+import com.cube.cubeacademy.viewmodel.NominationViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
-
+import androidx.activity.viewModels
 @AndroidEntryPoint
 class CreateNominationActivity : AppCompatActivity() {
 	private lateinit var binding: ActivityCreateNominationBinding
 
 	@Inject
 	lateinit var repository: Repository
-	private lateinit var nomineeList: List<Nominee>
+	private val viewModel: NominationViewModel by viewModels()
 	private lateinit var nomineeSpinner: AppCompatSpinner
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -39,14 +36,13 @@ class CreateNominationActivity : AppCompatActivity() {
 		 */
 
 		// Here we fetch the list of cube nominees from the repository or API
-		GlobalScope.launch(Dispatchers.IO) {
-			nomineeList = repository.getAllNominees()
-			withContext(Dispatchers.Main){
-				val nomineeNames = nomineeList.map{"${it.firstName} ${it.lastName}"}
-				val adapter = ArrayAdapter(this@CreateNominationActivity, android.R.layout.simple_spinner_item, nomineeNames)
-				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-				nomineeSpinner.adapter = adapter
-			}
-		}
+		viewModel.nomineeList.observe(this, Observer{ nominees ->
+			val nomineeNames = nominees.map{ "${it.firstName} ${it.lastName}"}
+			val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item,nomineeNames)
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+			nomineeSpinner.adapter = adapter
+		})
+
+		viewModel.fetchCubeNominees()
 	}
 }
