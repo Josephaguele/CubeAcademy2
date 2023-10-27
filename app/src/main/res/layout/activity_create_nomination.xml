@@ -151,6 +151,7 @@
 					android:inputType="textMultiLine"
 					android:lines="8"
 					android:padding="12dp"
+					android:maxLength="280"
 					android:scrollbars="vertical" />
 
 
@@ -193,13 +194,13 @@
 						android:drawableLeft="@drawable/very_unfair"
 						android:text="@string/very_unfair" />
 					<RadioButton
-						android:id="@+id/fair"
+						android:id="@+id/unfair"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						style="@style/radiobuttonstyle"
 						android:layoutDirection="rtl"
-						android:drawableLeft="@drawable/fair"
-						android:text="@string/fair" />
+						android:drawableLeft="@drawable/unfair"
+						android:text="@string/unfair" />
 
 					<RadioButton
 						android:id="@+id/neutral"
@@ -260,9 +261,8 @@
 		<androidx.appcompat.widget.AppCompatButton
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:id="@+id/submit_button"
+			android:id="@+id/submit_nomination_button"
 			style="@style/button"
-			android:enabled="false"
 			android:layout_marginStart="7dp"
 			android:layout_weight="2"
 			android:text="@string/submit_nomination" />

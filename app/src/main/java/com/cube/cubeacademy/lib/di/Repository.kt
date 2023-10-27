@@ -1,5 +1,6 @@
 package com.cube.cubeacademy.lib.di
 
+import android.util.Log
 import com.cube.cubeacademy.lib.api.ApiService
 import com.cube.cubeacademy.lib.models.Nomination
 import com.cube.cubeacademy.lib.models.Nominee
@@ -13,13 +14,14 @@ class Repository(val api: ApiService) {
 	}
 
 	suspend fun getAllNominees(): List<Nominee> {
-		// TODO: Write the code to fetch list of all nominees from the api
+		// TODO: Write the code to fetch list of all nominees  from the api
 		return api.getAllNominees().data
 	}
 
 	suspend fun createNomination(nomineeId: String, reason: String, process: String): Nomination? {
 		// TODO: Write the code to create a new nomination using the api
 		val dataWrapper = api.createNomination(nomineeId, reason, process)
+		Log.i("checking data status", dataWrapper.data.toString())
 		return dataWrapper.data
 	}
 }

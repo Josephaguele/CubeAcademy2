@@ -20,6 +20,7 @@
 	<string name="opinion">Opinion</string>
 	<string name="very_fair">Very Fair</string>
 	<string name="fair">Fair</string>
+	<string name="unfair">Unfair</string>
 	<string name="very_unfair">Very Unfair</string>
     <string name="not_sure">Not sure</string>
 
