@@ -1,7 +1,12 @@
 package com.cube.cubeacademy.activities
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.Observer
@@ -19,13 +24,17 @@ class CreateNominationActivity : AppCompatActivity() {
 	lateinit var repository: Repository
 	private val viewModel: NominationViewModel by viewModels()
 	private lateinit var nomineeSpinner: AppCompatSpinner
+	private lateinit var howWeRunTextView : TextView
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		binding = ActivityCreateNominationBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 		nomineeSpinner = binding.cubeNomineeSpinner
+
+
 		populateUI()
+		multiColourTextView()
 	}
 
 	private fun populateUI() {
@@ -45,4 +54,12 @@ class CreateNominationActivity : AppCompatActivity() {
 
 		viewModel.fetchCubeNominees()
 	}
+
+	private fun multiColourTextView(){
+		howWeRunTextView = binding.howwerunTextview
+		val spannableText = SpannableString(howWeRunTextView.text)
+		spannableText.setSpan(ForegroundColorSpan(Color.parseColor("#FFF70087")), 23, howWeRunTextView.text.length -5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+		howWeRunTextView.text = spannableText
+	}
+
 }
