@@ -243,6 +243,7 @@
 		android:background="@color/white"
 		android:clipChildren="false"
 		android:clipToPadding="false"
+		android:id="@+id/button_layout"
 		android:elevation="10dp"
 		android:gravity="center_vertical"
 		android:orientation="horizontal"

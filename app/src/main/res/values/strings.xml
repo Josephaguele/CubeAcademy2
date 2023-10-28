@@ -23,6 +23,11 @@
 	<string name="unfair">Unfair</string>
 	<string name="very_unfair">Very Unfair</string>
     <string name="not_sure">Not sure</string>
+	<string name="are_you_sure">ARE YOU SURE?</string>
+	<string name="if_you_leave_this_page_you_will_lose_any_progress_made">If you leave this page, you will loose any progress made.</string>
+	<string name="cancel">CANCEL</string>
+	<string name="yes_leave_page">YES, LEAVE PAGE</string>
+	<string name="red_colour">#FFF70087</string>
 
 
 </resources>

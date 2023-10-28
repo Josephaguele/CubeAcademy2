@@ -1,24 +1,35 @@
 package com.cube.cubeacademy.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.cube.cubeacademy.databinding.ActivityNominationSubmittedBinding
 
 class NominationSubmittedActivity : AppCompatActivity() {
 	private lateinit var binding: ActivityNominationSubmittedBinding
+	private lateinit var createNewNominationButton : Button
+	private lateinit var backToHomeButton : Button
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 		binding = ActivityNominationSubmittedBinding.inflate(layoutInflater)
 		setContentView(binding.root)
-
-		populateUI()
+		createNewNominationButton = binding.submitButton
+		backToHomeButton = binding.backButton
+		buttonsFunctionality()
 	}
 
-	private fun populateUI() {
-		/**
-		 * TODO: Add the logic for the two buttons (Don't forget that if you start to add a new nomination, the back button shouldn't come back here)
-		 */
+	private fun buttonsFunctionality() {
+		createNewNominationButton.setOnClickListener{
+			val intent = Intent(this@NominationSubmittedActivity, CreateNominationActivity::class.java)
+			startActivity(intent)
+		}
+
+		backToHomeButton.setOnClickListener{
+			val intent = Intent(this@NominationSubmittedActivity, MainActivity::class.java)
+			startActivity(intent)
+		}
 	}
 }
