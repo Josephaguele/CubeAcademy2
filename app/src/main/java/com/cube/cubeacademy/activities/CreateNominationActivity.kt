@@ -1,5 +1,6 @@
 package com.cube.cubeacademy.activities
 
+
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -84,7 +85,7 @@ class CreateNominationActivity : AppCompatActivity() {
          * 		 The nominees drop down list items should come from the api (By fetching the nominee list)
          */
 
-        // Here we fetch the list of cube nominees from the repository or API
+        // fetch the list of cube nominees from the repository or API
         viewModel.nomineeList.observe(this, Observer { nominees ->
             val nomineeNames = nominees.map { "${it.firstName} ${it.lastName}" }
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, nomineeNames)

@@ -41,6 +41,7 @@
 		android:gravity="center_horizontal"
 		android:layout_weight="1"
 		android:orientation="vertical"
+		android:visibility="gone"
 		android:paddingHorizontal="30dp">
 
 		<ImageView
@@ -68,8 +69,8 @@
 		android:id="@+id/nominations_list"
 		android:background="@color/white"
 		android:layout_weight="1"
-		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 		android:visibility="gone"
+		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 		tools:listitem="@layout/view_nomination_list_item" />
 
 	<LinearLayout

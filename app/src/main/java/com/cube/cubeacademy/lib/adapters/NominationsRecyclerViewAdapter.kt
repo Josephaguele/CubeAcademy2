@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cube.cubeacademy.databinding.ViewNominationListItemBinding
 import com.cube.cubeacademy.lib.models.Nomination
+import com.cube.cubeacademy.lib.models.Nominee
 
-class NominationsRecyclerViewAdapter : ListAdapter<Nomination, NominationsRecyclerViewAdapter.ViewHolder>(DIFF_CALLBACK) {
+class NominationsRecyclerViewAdapter( private var nomineeList: List<Nominee>) : ListAdapter<Nomination, NominationsRecyclerViewAdapter.ViewHolder>(DIFF_CALLBACK) {
 	class ViewHolder(val binding: ViewNominationListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,14 +19,21 @@ class NominationsRecyclerViewAdapter : ListAdapter<Nomination, NominationsRecycl
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		val item = getItem(position)
+		val nominee = nomineeList.find { it.nomineeId == item.nomineeId }
+		/**
+		* TODO: This should show the nominee name instead of their id! Where can you get their name from?
+		*/
 		holder.binding.apply {
-			/**
-			 * TODO: This should show the nominee name instead of their id! Where can you get their name from?
-			 */
-			name.text = item.nomineeId
+			name.text = nominee?.firstName + " " + nominee?.lastName
 			reason.text = item.reason
 		}
 	}
+
+	fun updateNomineeList(nomineeList: List<Nominee>) {
+		this.nomineeList = nomineeList
+		notifyDataSetChanged()
+	}
+
 
 	companion object {
 		val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Nomination>() {

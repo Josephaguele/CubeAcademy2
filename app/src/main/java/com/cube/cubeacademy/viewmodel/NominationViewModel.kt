@@ -1,7 +1,6 @@
 package com.cube.cubeacademy.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +25,9 @@ class NominationViewModel @Inject constructor(private val repository: Repository
     private val _nominationResult = MutableLiveData<Nomination?>()
     val nominationResult: MutableLiveData<Nomination?> = _nominationResult
 
+    private val _nominations = MutableLiveData<List<Nomination>>()
+    val nominations: LiveData<List<Nomination>> = _nominations
+
     fun fetchCubeNominees(){
         viewModelScope.launch(dispatcher){
             val nominees = repository.getAllNominees()
@@ -44,5 +46,14 @@ class NominationViewModel @Inject constructor(private val repository: Repository
                Log.i("Nomination", e.toString())
             }
         }
+    }
+
+    fun fetchNominations() {
+        // Fetch the list of nominations from the API
+        viewModelScope.launch(dispatcher) {
+           val submittedNominations =  repository.getAllNominations()
+            _nominations.postValue(submittedNominations)
+        }
+
     }
 }
