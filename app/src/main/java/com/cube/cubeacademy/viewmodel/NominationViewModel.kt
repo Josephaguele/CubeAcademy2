@@ -38,13 +38,8 @@ class NominationViewModel @Inject constructor(private val repository: Repository
 
     fun submitNomination(nomineeId: String, reason: String, process: String) {
         viewModelScope.launch(dispatcher) {
-            try {
                 val nomination = repository.createNomination(nomineeId, reason, process)
                 _nominationResult.postValue(nomination)
-            } catch (e: Exception) {
-
-               Log.i("Nomination", e.toString())
-            }
         }
     }
 

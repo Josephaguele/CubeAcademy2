@@ -17,7 +17,7 @@ android {
 		versionCode = 1
 		versionName = "1.0"
 
-		testInstrumentationRunner = "com.cube.cubeacademy.di.CustomTestRunner"
+		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
 		buildConfigField("String", "API_URL", "\"https://cube-academy-api.cubeapis.com/\"")
 		buildConfigField("String", "AUTH_TOKEN", "\"${project.property("authToken")}\"")
@@ -43,6 +43,7 @@ android {
 		viewBinding = true
 		buildConfig = true
 	}
+
 }
 
 dependencies {
@@ -61,13 +62,28 @@ dependencies {
 
 	// Hilt
 	implementation("com.google.dagger:hilt-android:2.48")
+	implementation("androidx.test.ext:junit-ktx:1.1.5")
 	kapt("com.google.dagger:hilt-compiler:2.48")
 	testImplementation("com.google.dagger:hilt-android-testing:2.48")
 	androidTestImplementation("com.google.dagger:hilt-android-testing:2.48")
 	kaptTest("com.google.dagger:hilt-android-compiler:2.48")
 	kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.48")
 
+	//test dependencies
 	testImplementation("junit:junit:4.13.2")
-	androidTestImplementation("androidx.test.ext:junit:1.1.5")
+
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+	testImplementation("org.mockito:mockito-core:4.6.1")
+	testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
+	androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
+	testImplementation("io.mockk:mockk:1.12.4")
+	androidTestImplementation("io.mockk:mockk:1.12.4")
+	testImplementation("androidx.arch.core:core-testing:2.1.0")
+	testImplementation ("androidx.test:runner:1.5.2")
+	androidTestUtil ("androidx.test:orchestrator:1.1.0")
+	androidTestImplementation("androidx.test:rules:1.1.2-alpha02")
+
+
+
+
 }
