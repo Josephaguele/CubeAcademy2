@@ -10,6 +10,8 @@ android {
 	namespace = "com.cube.cubeacademy"
 	compileSdk = 34
 
+	testOptions.unitTests.isReturnDefaultValues = true
+
 	defaultConfig {
 		applicationId = "com.cube.cubeacademy"
 		minSdk = 30
@@ -82,6 +84,7 @@ dependencies {
 	testImplementation ("androidx.test:runner:1.5.2")
 	androidTestUtil ("androidx.test:orchestrator:1.1.0")
 	androidTestImplementation("androidx.test:rules:1.1.2-alpha02")
+	testImplementation ("org.robolectric:robolectric:4.7.3")
 
 
 
