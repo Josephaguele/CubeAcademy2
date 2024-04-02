@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cube.cubeacademy.databinding.ActivityMainBinding
@@ -19,8 +20,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 	private lateinit var binding: ActivityMainBinding
-	private lateinit var recyclerView: RecyclerView
-	private lateinit var adapter: NominationsRecyclerViewAdapter
 	private val viewModel: NominationViewModel by viewModels()
 	private lateinit var emptyContainer : LinearLayout
 	@Inject
@@ -36,31 +35,47 @@ class MainActivity : AppCompatActivity() {
 		}
 		emptyContainer = binding.emptyContainer
 
-
-		// Fetch the list of nominees and nominations using the ViewModel
-		adapter = NominationsRecyclerViewAdapter(emptyList())
-		recyclerView = binding.nominationsList
-		recyclerView.layoutManager = LinearLayoutManager(this)
-		recyclerView.adapter = adapter
-
+		setupUI()
 		viewModel.fetchNominations()
 		viewModel.fetchCubeNominees()
 
 
-		viewModel.nomineeList.observe(this, Observer {nominees ->
-			// update the dataset that the adapter has to reflect the most recent changes
-			adapter.updateNomineeList(nominees)
+
+
+		viewModel.nomineeList.observe(this, Observer { nominees ->
+			binding.nominationsList.adapter?.let { adapter ->
+				(adapter as NominationsRecyclerViewAdapter).updateNomineeList(nominees)
+			}
 		})
 
 		viewModel.nominations.observe(this, Observer { nominationsList ->
-			recyclerView.layoutManager = LinearLayoutManager(this)
-			adapter.submitList(nominationsList)
-			if (nominationsList.isEmpty()) {
-				recyclerView.visibility = View.GONE
-			} else {
-				recyclerView.visibility = View.VISIBLE
+			binding.nominationsList.adapter?.let { adapter ->
+				(adapter as NominationsRecyclerViewAdapter).submitList(nominationsList)
+				if (nominationsList.isEmpty()) {
+					binding.nominationsList.visibility = View.GONE
+				} else {
+					binding.nominationsList.visibility = View.VISIBLE
+				}
 			}
 		})
+	}
+
+	private fun setupUI(){
+		val adapter = createAdapter()
+		setupRecyclerView(adapter)
+	}
+
+	private fun setupRecyclerView(nominationsRecyclerViewAdapter: NominationsRecyclerViewAdapter) {
+
+		binding.nominationsList.apply {
+			adapter = nominationsRecyclerViewAdapter
+			layoutManager = LinearLayoutManager(context)
+			setHasFixedSize(true)
+		}
+	}
+
+	private fun createAdapter(): NominationsRecyclerViewAdapter {
+		return NominationsRecyclerViewAdapter(emptyList())
 	}
 
 	private fun navigateToNominations(){
